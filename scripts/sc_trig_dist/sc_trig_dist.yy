@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"sc_trig_dist",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"sc_trig_dist",
+  "parent":{
+    "name":"Shaders",
+    "path":"folders/Scripts/Draw/Shaders.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

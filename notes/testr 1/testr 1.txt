@@ -1,0 +1,45 @@
+// is less
+					var _activeAngle = angle_difference(_dataOfSelected.angleOff + 90, 0);
+					if (_activeAngle == 90 || _activeAngle == -90) {
+						// norml case
+						if (_activeAngle == 90) {
+							// is just less
+							if (mouseGetX() < objectTransformXMainOff) {
+								// invert it
+								_distanceX *= -1;
+							};
+						} else {
+							// is just more
+							if (mouseGetX() > objectTransformXMainOff) {
+								// invert it
+								_distanceX *= -1;
+							};
+						}
+					} else if (_activeAngle == 0 || _activeAngle == -180 || _activeAngle == 180) {
+						// depending on the thing
+						if (_activeAngle == -180 || _activeAngle == 180) {
+							// is just more
+							if (mouseGetY() > objectTransformYMainOff) {
+								// invert it
+								_distanceX *= -1;
+							};
+						} else {
+							// is just less
+							if (mouseGetY() < objectTransformYMainOff) {
+								// invert it
+								_distanceX *= -1;
+							};
+						};
+					} else {
+						// inver
+						var _trueX = objectTransformXMainOff - (objectTransformYMainOff * (1 / -tan(degtorad(_activeAngle))));
+						// is more?
+						if (_newPosition.y > ((_newPosition.x - _trueX) * -tan(degtorad(_activeAngle)))) {
+							show_debug_message("on invert side")
+							// invert it
+							_distanceX *= -1;
+						} else { show_debug_message("not on invert side") };
+						// is fucking neg
+						if (angle_difference(_dataOfSelected.angleOff, 0) < 0) { _distanceX *= -1; show_debug_message("doubleinv") };
+					};
+					 show_debug_message("distanceX: " + string(_distanceX) +  ", acAngle: " + string(_activeAngle))

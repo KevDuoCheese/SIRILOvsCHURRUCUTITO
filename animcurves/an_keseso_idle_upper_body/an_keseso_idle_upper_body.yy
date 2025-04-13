@@ -1,0 +1,37 @@
+{
+  "$GMAnimCurve":"",
+  "%Name":"an_keseso_idle_upper_body",
+  "channels":[
+    {"$GMAnimCurveChannel":"","%Name":"shift","colour":4279025727,"name":"shift","points":[
+        {"th0":-0.1,"th1":0.1,"tv0":0.0,"tv1":0.0,"x":0.0,"y":0.0125,},
+        {"th0":-0.1,"th1":0.1,"tv0":0.0,"tv1":0.0,"x":1.0,"y":0.0125,},
+      ],"resourceType":"GMAnimCurveChannel","resourceVersion":"2.0","visible":false,},
+    {"$GMAnimCurveChannel":"","%Name":"leftArm_angle","colour":4281083598,"name":"leftArm_angle","points":[
+        {"th0":-0.1,"th1":0.036828075,"tv0":0.0,"tv1":-4.9643,"x":0.0,"y":-10.0,},
+        {"th0":-0.09559095,"th1":0.20981267,"tv0":-0.0619434,"tv1":0.13595963,"x":0.25,"y":-20.0,},
+        {"th0":-0.1690406,"th1":0.11259544,"tv0":-0.1151338,"tv1":0.076688915,"x":0.75,"y":0.0,},
+        {"th0":-0.073497355,"th1":0.1,"tv0":5.318893,"tv1":0.0,"x":1.0,"y":-10.0,},
+      ],"resourceType":"GMAnimCurveChannel","resourceVersion":"2.0","visible":false,},
+    {"$GMAnimCurveChannel":"","%Name":"rightArm_angle","colour":4280651982,"name":"rightArm_angle","points":[
+        {"th0":-0.1,"th1":0.03491968,"tv0":0.0,"tv1":3.8357,"x":0.0,"y":10.133333,},
+        {"th0":-0.09559095,"th1":0.20981267,"tv0":-0.0619434,"tv1":0.13595963,"x":0.25,"y":20.0,},
+        {"th0":-0.1690406,"th1":0.11259544,"tv0":-0.1151338,"tv1":0.076688915,"x":0.75,"y":0.0,},
+        {"th0":-0.08303934,"th1":0.1,"tv0":-4.947773,"tv1":0.0,"x":1.0,"y":10.0,},
+      ],"resourceType":"GMAnimCurveChannel","resourceVersion":"2.0","visible":false,},
+    {"$GMAnimCurveChannel":"","%Name":"faceOb_y","colour":4281083598,"name":"faceOb_y","points":[
+        {"th0":-0.1,"th1":0.07255502,"tv0":0.0,"tv1":-1.0451944,"x":0.0,"y":0.0,},
+        {"th0":-0.19786063,"th1":0.20815009,"tv0":0.10474562,"tv1":-0.110192776,"x":0.25,"y":-1.5,},
+        {"th0":-0.046981074,"th1":0.051564276,"tv0":-0.44304958,"tv1":0.4862709,"x":0.5,"y":0.110192835,},
+        {"th0":-0.047777355,"th1":0.10380417,"tv0":0.0,"tv1":0.0,"x":0.75,"y":1.5,},
+        {"th0":-0.12262678,"th1":0.1,"tv0":1.109338,"tv1":0.0,"x":1.0,"y":0.0,},
+      ],"resourceType":"GMAnimCurveChannel","resourceVersion":"2.0","visible":true,},
+  ],
+  "function":2,
+  "name":"an_keseso_idle_upper_body",
+  "parent":{
+    "name":"Animation Curves",
+    "path":"folders/Animation Curves.yy",
+  },
+  "resourceType":"GMAnimCurve",
+  "resourceVersion":"2.0",
+}

@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"sc_16slice",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"sc_16slice",
+  "parent":{
+    "name":"Shaders",
+    "path":"folders/Scripts/Draw/Shaders.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

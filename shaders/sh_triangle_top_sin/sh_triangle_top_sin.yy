@@ -1,0 +1,12 @@
+{
+  "$GMShader":"",
+  "%Name":"sh_triangle_top_sin",
+  "name":"sh_triangle_top_sin",
+  "parent":{
+    "name":"Shaders",
+    "path":"folders/Shaders.yy",
+  },
+  "resourceType":"GMShader",
+  "resourceVersion":"2.0",
+  "type":1,
+}

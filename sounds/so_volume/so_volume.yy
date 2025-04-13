@@ -1,0 +1,25 @@
+{
+  "$GMSound":"",
+  "%Name":"so_volume",
+  "audioGroupId":{
+    "name":"audiogroup_default",
+    "path":"audiogroups/audiogroup_default",
+  },
+  "bitDepth":1,
+  "bitRate":128,
+  "compression":0,
+  "conversionMode":0,
+  "duration":2.39746,
+  "name":"so_volume",
+  "parent":{
+    "name":"User Interface",
+    "path":"folders/Sounds/User Interface.yy",
+  },
+  "preload":false,
+  "resourceType":"GMSound",
+  "resourceVersion":"2.0",
+  "sampleRate":44100,
+  "soundFile":"so_volume.wav",
+  "type":0,
+  "volume":1.0,
+}

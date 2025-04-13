@@ -1,0 +1,51 @@
+{
+  "$GMAnimCurve":"",
+  "%Name":"an_keseso_idle_main",
+  "channels":[
+    {"$GMAnimCurveChannel":"","%Name":"upperBodyOb_y","colour":4290799884,"name":"upperBodyOb_y","points":[
+        {"th0":-0.1,"th1":0.1038168,"tv0":0.0,"tv1":-0.44999233,"x":0.0,"y":0.04,},
+        {"th0":-0.053804427,"th1":0.0500125,"tv0":-0.00153147,"tv1":0.0014235377,"x":0.25,"y":-0.5,},
+        {"th0":-0.06717557,"th1":0.05356435,"tv0":-0.36999482,"tv1":0.29502594,"x":0.5,"y":0.0,},
+        {"th0":-0.10339385,"th1":0.09397059,"tv0":-0.0012831688,"tv1":0.0011662215,"x":0.7480916,"y":1.0,},
+        {"th0":-0.08473283,"th1":0.1,"tv0":0.60999024,"tv1":0.0,"x":1.0,"y":0.02,},
+      ],"resourceType":"GMAnimCurveChannel","resourceVersion":"2.0","visible":false,},
+    {"$GMAnimCurveChannel":"","%Name":"upperBodyOb_yScale","colour":4281083598,"name":"upperBodyOb_yScale","points":[
+        {"th0":-0.1,"th1":0.10308938,"tv0":0.0,"tv1":0.032491803,"x":0.0,"y":1.0,},
+        {"th0":-0.121533066,"th1":0.091737896,"tv0":0.0,"tv1":0.0,"x":0.25,"y":1.0511461,},
+        {"th0":-0.059616953,"th1":0.1820232,"tv0":0.016851664,"tv1":-0.051451698,"x":0.5,"y":1.0,},
+        {"th0":-0.08403694,"th1":0.10380417,"tv0":0.0,"tv1":-0.0,"x":0.75,"y":0.9511462,},
+        {"th0":-0.10735959,"th1":0.1,"tv0":-0.032259822,"tv1":0.0,"x":1.0,"y":1.0,},
+      ],"resourceType":"GMAnimCurveChannel","resourceVersion":"2.0","visible":true,},
+    {"$GMAnimCurveChannel":"","%Name":"shift","colour":4279025727,"name":"shift","points":[
+        {"th0":-0.1,"th1":0.1,"tv0":0.0,"tv1":0.0,"x":0.0,"y":0.013,},
+        {"th0":-0.1,"th1":0.1,"tv0":0.0,"tv1":0.0,"x":1.0,"y":0.013,},
+      ],"resourceType":"GMAnimCurveChannel","resourceVersion":"2.0","visible":false,},
+    {"$GMAnimCurveChannel":"","%Name":"upperBodyOb_xScale","colour":4279234797,"name":"upperBodyOb_xScale","points":[
+        {"th0":-0.1,"th1":0.06856697,"tv0":0.0,"tv1":-0.026645064,"x":0.0,"y":1.0,},
+        {"th0":-0.13140523,"th1":0.124138474,"tv0":0.0,"tv1":0.0,"x":0.25,"y":0.95,},
+        {"th0":-0.060060382,"th1":0.06475966,"tv0":-0.01949048,"tv1":0.021015467,"x":0.5,"y":1.0,},
+        {"th0":-0.084192514,"th1":0.10504699,"tv0":0.0,"tv1":0.0,"x":0.75,"y":1.0507828,},
+        {"th0":-0.10014808,"th1":0.1,"tv0":0.035814404,"tv1":0.0,"x":1.0,"y":1.0,},
+      ],"resourceType":"GMAnimCurveChannel","resourceVersion":"2.0","visible":false,},
+    {"$GMAnimCurveChannel":"","%Name":"leftLeg_angle","colour":4281083598,"name":"leftLeg_angle","points":[
+        {"th0":-0.1,"th1":0.10553037,"tv0":0.0,"tv1":-0.62332606,"x":0.0,"y":-0.9680811,},
+        {"th0":-0.09559095,"th1":0.20981267,"tv0":-0.0619434,"tv1":0.13595963,"x":0.25,"y":-2.0,},
+        {"th0":-0.1690406,"th1":0.11259544,"tv0":-0.1151338,"tv1":0.076688915,"x":0.75,"y":0.0,},
+        {"th0":-0.15174162,"th1":0.1,"tv0":0.7864056,"tv1":0.0,"x":1.0,"y":-1.0,},
+      ],"resourceType":"GMAnimCurveChannel","resourceVersion":"2.0","visible":false,},
+    {"$GMAnimCurveChannel":"","%Name":"rightLeg_angle","colour":4280651982,"name":"rightLeg_angle","points":[
+        {"th0":-0.1,"th1":0.101713575,"tv0":0.0,"tv1":0.6438073,"x":0.0,"y":1.0,},
+        {"th0":-0.09559095,"th1":0.20981267,"tv0":-0.0619434,"tv1":0.13595963,"x":0.25,"y":2.0,},
+        {"th0":-0.1690406,"th1":0.11259544,"tv0":-0.1151338,"tv1":0.076688915,"x":0.75,"y":0.0,},
+        {"th0":-0.14601648,"th1":0.1,"tv0":-0.89406925,"tv1":0.0,"x":1.0,"y":1.0,},
+      ],"resourceType":"GMAnimCurveChannel","resourceVersion":"2.0","visible":false,},
+  ],
+  "function":2,
+  "name":"an_keseso_idle_main",
+  "parent":{
+    "name":"Animation Curves",
+    "path":"folders/Animation Curves.yy",
+  },
+  "resourceType":"GMAnimCurve",
+  "resourceVersion":"2.0",
+}

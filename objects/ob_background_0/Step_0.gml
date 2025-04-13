@@ -1,0 +1,4 @@
+/// @description 
+if (canPlay) {
+	timePlaying++;
+};
