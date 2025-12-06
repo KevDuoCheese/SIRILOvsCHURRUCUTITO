@@ -222,9 +222,11 @@ function kesoAnimCurveChannel(_name, _pointStartY, _pointEndY, _pointType) : kes
 		var _solutions;
 		// has it?
 		if (_aForX != 0) {
-			_solutions = algCubicFormulaResolveForRealRoots(_aForX, _bForX, _cForX, _dForX);
+			//_solutions = algCubicFormulaResolveForRealRoots(_aForX, _bForX, _cForX, _dForX);
+			_solutions = cubicSolverRealOnly(_aForX, _bForX, _cForX, _dForX);
 		} else if (_bForX != 0) {
-			_solutions = algSquareFormulaResolveForRealRoots(_bForX, _cForX, _dForX);
+			_solutions = squareSolverRealOnly(_bForX, _cForX, _dForX);
+			//_solutions = algSquareFormulaResolveForRealRoots(_bForX, _cForX, _dForX);
 		} else if (_cForX != 0) {
 			_solutions = -_dForX / _cForX;
 		} else {

@@ -1,5 +1,5 @@
 {
-  "$GMSprite":"",
+  "$GMSprite":"v2",
   "%Name":"sp_keseso_eyes",
   "bboxMode":0,
   "bbox_bottom":39,
@@ -12,9 +12,9 @@
   "edgeFiltering":false,
   "For3D":false,
   "frames":[
-    {"$GMSpriteFrame":"","%Name":"d9ec2630-0f41-405c-89f9-0d03a95b315e","name":"d9ec2630-0f41-405c-89f9-0d03a95b315e","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
-    {"$GMSpriteFrame":"","%Name":"0fdfc6d8-ee00-4f0b-85b9-86fca101990f","name":"0fdfc6d8-ee00-4f0b-85b9-86fca101990f","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
-    {"$GMSpriteFrame":"","%Name":"3c9b98a3-62c4-45d8-bd08-7eae0caffba9","name":"3c9b98a3-62c4-45d8-bd08-7eae0caffba9","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"d9ec2630-0f41-405c-89f9-0d03a95b315e","name":"d9ec2630-0f41-405c-89f9-0d03a95b315e","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"0fdfc6d8-ee00-4f0b-85b9-86fca101990f","name":"0fdfc6d8-ee00-4f0b-85b9-86fca101990f","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"3c9b98a3-62c4-45d8-bd08-7eae0caffba9","name":"3c9b98a3-62c4-45d8-bd08-7eae0caffba9","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
   ],
   "gridX":0,
   "gridY":0,

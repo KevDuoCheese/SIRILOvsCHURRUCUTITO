@@ -140,6 +140,15 @@ switch (presetName) {
 		
 	break;
 	
+	case "pixel":
+		
+		// Set the font to it
+		draw_set_font(global.fontMap[? "pixel"]);
+		// And default color
+		draw_set_color(c_white);
+		
+	break;
+	
 	case "ui-buttons":
 		
 		// Set the font to it
@@ -176,10 +185,13 @@ switch (presetName) {
 		
 	break;
 	
-	case "battle-blood":
+	case "hit":
 		
 		// Set the font to it
-		draw_set_font(global.fontMap[? "battle-blood"]);
+		draw_set_font(global.fontMap[? "hit"]);
+		// set the align
+		draw_set_halign(fa_center);
+		draw_set_valign(fa_bottom);
 		// And default color
 		draw_set_color(c_white);
 		

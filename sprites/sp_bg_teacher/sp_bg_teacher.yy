@@ -1,5 +1,5 @@
 {
-  "$GMSprite":"",
+  "$GMSprite":"v2",
   "%Name":"sp_bg_teacher",
   "bboxMode":0,
   "bbox_bottom":191,
@@ -12,7 +12,7 @@
   "edgeFiltering":false,
   "For3D":false,
   "frames":[
-    {"$GMSpriteFrame":"","%Name":"ea8c9597-87b7-40a5-b7e4-58d63b6a4a28","name":"ea8c9597-87b7-40a5-b7e4-58d63b6a4a28","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"ea8c9597-87b7-40a5-b7e4-58d63b6a4a28","name":"ea8c9597-87b7-40a5-b7e4-58d63b6a4a28","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
   ],
   "gridX":0,
   "gridY":0,

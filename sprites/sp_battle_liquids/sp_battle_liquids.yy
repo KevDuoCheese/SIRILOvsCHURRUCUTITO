@@ -1,5 +1,5 @@
 {
-  "$GMSprite":"",
+  "$GMSprite":"v2",
   "%Name":"sp_battle_liquids",
   "bboxMode":0,
   "bbox_bottom":11,
@@ -12,8 +12,8 @@
   "edgeFiltering":false,
   "For3D":false,
   "frames":[
-    {"$GMSpriteFrame":"","%Name":"1274f17d-76c0-4dea-b200-5b556f68ae5c","name":"1274f17d-76c0-4dea-b200-5b556f68ae5c","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
-    {"$GMSpriteFrame":"","%Name":"52201ba7-eca3-4d7e-831a-a83b886850a9","name":"52201ba7-eca3-4d7e-831a-a83b886850a9","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"1274f17d-76c0-4dea-b200-5b556f68ae5c","name":"1274f17d-76c0-4dea-b200-5b556f68ae5c","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"52201ba7-eca3-4d7e-831a-a83b886850a9","name":"52201ba7-eca3-4d7e-831a-a83b886850a9","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
   ],
   "gridX":0,
   "gridY":0,

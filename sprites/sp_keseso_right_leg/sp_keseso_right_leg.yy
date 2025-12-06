@@ -1,5 +1,5 @@
 {
-  "$GMSprite":"",
+  "$GMSprite":"v2",
   "%Name":"sp_keseso_right_leg",
   "bboxMode":0,
   "bbox_bottom":20,
@@ -12,7 +12,7 @@
   "edgeFiltering":false,
   "For3D":false,
   "frames":[
-    {"$GMSpriteFrame":"","%Name":"0583cdb1-92ab-4c92-9f15-51efd30804ac","name":"0583cdb1-92ab-4c92-9f15-51efd30804ac","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"0583cdb1-92ab-4c92-9f15-51efd30804ac","name":"0583cdb1-92ab-4c92-9f15-51efd30804ac","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
   ],
   "gridX":0,
   "gridY":0,

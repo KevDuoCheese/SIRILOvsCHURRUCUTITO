@@ -2,5 +2,10 @@
 	"quitting_msg": "Saliendo",
 	
 	"turn_cards": "Cartas",
-	"turn_item": "Items"
+	"turn_item": "Items",
+	
+	"psi_offensive": "Ofensa",
+	"psi_defensive": "Defensa",
+	"psi_healer": "Jeremy",
+	"psi_special": "Especial"
 }

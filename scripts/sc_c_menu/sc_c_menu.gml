@@ -97,7 +97,7 @@ return cMenuKeybindPush(dK) - cMenuKeybindPush(uK);
 
 
 
-function cMenuCreate() {
+function cMenuCreate(_customPreset = "general") {
 
 // Set myself as the handler
 global.cMenuHandler = id;
@@ -121,7 +121,7 @@ menuDepth = [ "main" ];
 menuDepthReal = 0;
 
 // Get height and this bullshit
-draw_set_font(global.fontMap[? "general"]);
+drawPreset(_customPreset);
 optionHeight = max(9, string_height("W._l")) + 2;
 
 
@@ -175,6 +175,22 @@ function cMenuWindowGetHeight(optionsNumber, extraSep = 16) {
 
 // Return this shit
 return (global.cMenuHandler.optionHeight * optionsNumber) + extraSep;
+
+};
+
+/// @description This will get the max width of all the options
+function cMenuWindowGetWidth(_optionArray, usesLang = false, extraSep = 32) {
+
+var _minW = 0;
+
+// loop for each
+for (var i = 0; i < array_length(_optionArray); i++) {
+	// get the thing
+	_minW = max(_minW, string_width(usesLang ? languageGet(_optionArray[i]) : _optionArray[i]));
+};
+
+// Return this shit
+return _minW + extraSep;
 
 };
 
@@ -442,7 +458,7 @@ if (ds_map_exists(global.cMenuHandler.windowsMap, wId) && instance_exists(global
 };
 
 /// @description Execute his fucking draw event
-function cMenuWindowDraw(wId) {
+function cMenuWindowDrawGUI(wId) {
 
 // Key exists or not
 if (ds_map_exists(global.cMenuHandler.windowsMap, wId) && instance_exists(global.cMenuHandler.windowsMap[? wId])) {
@@ -453,11 +469,80 @@ if (ds_map_exists(global.cMenuHandler.windowsMap, wId) && instance_exists(global
 
 };
 
+/// @description Execute his fucking draw event normally
+function cMenuWindowDraw(wId) {
+
+// Key exists or not
+if (ds_map_exists(global.cMenuHandler.windowsMap, wId) && instance_exists(global.cMenuHandler.windowsMap[? wId])) {
+	
+	// Execute draw GUI event
+	with (global.cMenuHandler.windowsMap[? wId]) { event_perform(ev_draw, ev_draw_normal); };
+};
+
+};
+
 /// @description Change inside window draw function
 function cMenuWindowDrawFunction(wId, newFunction) {
 
 // Set function
 global.cMenuHandler.windowsMap[? wId].windowInsideDrawFunction = method(global.cMenuHandler.windowsMap[? wId], newFunction);
+
+};
+
+/// @description draw all the windows
+function cMenuWindowDrawAll() {
+
+// Da preset
+drawPreset("general");
+
+// Visit all depths
+for (var i = 0; i < max(array_length(menuDepth), array_length(windowsDepth)); i++) {
+	
+	// Has enough
+	if (array_length(windowsDepth) > i) {
+		// Search for windows on this level
+		for (var n = 0; n < array_length(windowsDepth[i]); n++) {
+			
+			// And draw that window
+			cMenuWindowDraw(windowsDepth[i][n]);
+		};
+	};
+};
+
+};
+
+/// @description draw all the windows
+function cMenuWindowDrawAllGUI() {
+
+// Da preset
+drawPreset("general");
+
+// Visit all depths
+for (var i = 0; i < max(array_length(menuDepth), array_length(windowsDepth)); i++) {
+	
+	// Has enough
+	if (array_length(windowsDepth) > i) {
+		// Search for windows on this level
+		for (var n = 0; n < array_length(windowsDepth[i]); n++) {
+			
+			// And draw that window
+			cMenuWindowDrawGUI(windowsDepth[i][n]);
+		};
+	};
+	// Has enough
+	if (array_length(menuDepth) > i) {
+		// Get this depth ID
+		var _depthId = menuDepth[i];
+		
+	};
+};
+
+};
+
+/// @description Get menu window ID 
+function cMenuWindowId(wId) {
+
+return global.cMenuHandler.windowsMap[? wId];
 
 };
 

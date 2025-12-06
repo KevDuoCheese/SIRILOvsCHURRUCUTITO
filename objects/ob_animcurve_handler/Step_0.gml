@@ -128,6 +128,15 @@ switch (phase) {
 			// is clicking?
 			if (mouse_check_button(mb_left) && (mouseOnPoint == selectedPoint)) {
 				phase = "movingPoint";
+				selectedPointCanMove = false;
+				// get the positions for this shit
+				selectedPointMoveMouseXOc = windowGetMouseX();
+				selectedPointMoveMouseYOc = windowGetMouseY();
+				// get the other points
+				var _pointPosition = drawConvertPoint(_points[selectedPoint].x, _points[selectedPoint].y);
+				// save the offset
+				selectedPointMoveMouseXOffset = _pointPosition[0] - selectedPointMoveMouseXOc;
+				selectedPointMoveMouseYOffset = _pointPosition[1] - selectedPointMoveMouseYOc;
 				break;
 			};
 			
@@ -169,7 +178,19 @@ switch (phase) {
 		};
 		
 		// has mouse on point?
-		if (selectedPoint != -1) { if (mouse_check_button_pressed(mb_left)) { selectedPoint = -1; break; }; };
+		if (selectedPoint != -1) {
+			// want to delete it?
+			if (keyboard_check_pressed(vk_delete)) {
+				// is neither the last or first point
+				if ((selectedPoint > 0) && (selectedPoint < (array_length(kAnimCurveChannel.points) - 1))) {
+					// delete this point
+					kAnimCurveChannel.pointDelete(selectedPoint);
+					selectedPoint = -1; break;
+				};
+			};
+			// to deselect the point
+			if (mouse_check_button_pressed(mb_left) && mouseInside) { selectedPoint = -1; break; };
+		};
 	break;
 	
 	case "movingPoint":
@@ -182,11 +203,26 @@ switch (phase) {
 		
 		// on the curve
 		onTheCurve = selectedPoint;
+		// ensure it moved a little alleast
+		if (!mouseInGUI(selectedPointMoveMouseXOc - 2, selectedPointMoveMouseYOc - 2, 
+						selectedPointMoveMouseXOc + 2, selectedPointMoveMouseYOc + 2)) {
+			// now you can
+			selectedPointCanMove = true;
+		};
 		
-		// levae out
-		var _restoredPoint = drawDeconvertPoint(windowGetMouseX(), clamp(windowGetMouseY(), y, y + image_yscale));
-		// set up the point position
-		_points[selectedPoint].setPosition(_restoredPoint[0], _restoredPoint[1]);
+		
+		// wait to start reconverting
+		if (modifyPointTimer > 0) {
+			
+		};
+		
+		// if you can move it
+		if (selectedPointCanMove) {
+			// levae out
+			var _restoredPoint = drawDeconvertPoint(windowGetMouseX() + selectedPointMoveMouseXOffset, clamp(windowGetMouseY() + selectedPointMoveMouseYOffset, y, y + image_yscale));
+			// set up the point position
+			_points[selectedPoint].setPosition(_restoredPoint[0], _restoredPoint[1]);
+		};
 		
 		// levae out
 		if (!mouse_check_button(mb_left)) {
@@ -251,42 +287,41 @@ switch (phase) {
 
 // has channek
 if (kAnimCurveChannel != -1) {
-
-// on the last?
-if ((onTheCurve > 0) && (onTheCurve == (array_length(kAnimCurveChannel.points) - 1))) { onTheCurve = onTheCurve - 1; };
-
-// change draw limit
-var _heightType = abs(drawLimitTop - drawLimitBottom);
-// goes up
-var _movingScroll = _heightType / 20;
-// get thtat
-var _movingShift = mouse_wheel_up() - mouse_wheel_down();
-
-// doing it
-if (mouseInside) {
-	// has control
-	if (keyboard_check_direct(vk_lcontrol)) {
-		
-		// get middle points
-		var _middleLimit = (drawLimitBottom + drawLimitTop) / 2;
-		// set middle height
-		var _newHeight = _heightType / 2;
-		var _scrollSize = 1.2;
-		// get mouse
-		if (mouse_wheel_up())	 { _newHeight /= _scrollSize; };
-		if (mouse_wheel_down())	 { _newHeight *= _scrollSize; };
-		// set middle limit
-		drawLimitTop	 = _middleLimit + _newHeight;
-		drawLimitBottom	 = _middleLimit - _newHeight;
 	
-	} else {
-		
-		// increase both
-		drawLimitBottom	 += _movingShift * _movingScroll;
-		drawLimitTop	 += _movingShift * _movingScroll;
+	// on the last?
+	if ((onTheCurve > 0) && (onTheCurve == (array_length(kAnimCurveChannel.points) - 1))) { onTheCurve = onTheCurve - 1; };
+	
+	// change draw limit
+	var _heightType = abs(drawLimitTop - drawLimitBottom);
+	// goes up
+	var _movingScroll = _heightType / 20;
+	// get thtat
+	var _movingShift = mouse_wheel_up() - mouse_wheel_down();
+	
+	// doing it
+	if (mouseInside) {
+		// has control
+		if (keyboard_check_direct(vk_lcontrol)) {
+			
+			// get middle points
+			var _middleLimit = (drawLimitBottom + drawLimitTop) / 2;
+			// set middle height
+			var _newHeight = _heightType / 2;
+			var _scrollSize = 1.2;
+			// get mouse
+			if (mouse_wheel_up())	 { _newHeight /= _scrollSize; };
+			if (mouse_wheel_down())	 { _newHeight *= _scrollSize; };
+			// set middle limit
+			drawLimitTop	 = _middleLimit + _newHeight;
+			drawLimitBottom	 = _middleLimit - _newHeight;
+			
+		} else {
+			
+			// increase both
+			drawLimitBottom	 += _movingShift * _movingScroll;
+			drawLimitTop	 += _movingShift * _movingScroll;
+		};
 	};
-};
-
 };
 
 // is no selection
@@ -298,16 +333,19 @@ if (phase == "noSelection") {
 			// set new value
 			var _newValue = remapClamp(windowGetMouseX(), x, x + image_xscale, 0, 1);
 			// now update it
-			if (aeEditorAnimationObject != noone) {
-				// and modify here
-				aeEditorAnimationObject.animValue = _newValue;
-				// is not playing?
-				if (!aeEditorAnimationObject.isPlaying) {
-					// play and pause
-					aeEditorAnimationObject.animPlay();
-				};
+			if (eAnimExists(aeEditorAnimationObject)) {
+				
+				//show_debug_message("Playing Animation.");
+				// play and pause
+				//aeEditorAnimationObject.animPlay();
+				
+				show_debug_message("Pausing Animation.");
 				// pause it
 				aeEditorAnimationObject.animPause();
+				
+				show_debug_message("Setting Animation.");
+				// srt it
+				aeEditorAnimationObject.animSetValue(_newValue);
 			};
 		};
 	};

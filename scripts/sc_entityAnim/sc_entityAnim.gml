@@ -549,7 +549,7 @@ function eAnimSpriteCreate(_id, _x, _y, _spriteId, _depth) constructor {
 };
 
 /// @param {function}       doFunction       (elementIns, elementIndex)
-function eAnimParentElementsLoop(doFunction, restrictiveType = -1) {
+function eAnimParentElementsLoop(doFunction, restrictiveType = -1, selfIndex = -1) {
     
     // Get parent all elements
     var _parentElements = struct_get_names(parent.elements);
@@ -560,7 +560,7 @@ function eAnimParentElementsLoop(doFunction, restrictiveType = -1) {
         // Is an sprite?
         if ((restrictiveType != -1) ? (_elementIns.type == restrictiveType) : (true)) {
             // Setup the function
-            array_push(_saveUp, doFunction(_elementIns, i));
+            array_push(_saveUp, doFunction(_elementIns, i, selfIndex));
         };
     };
 	
@@ -739,6 +739,28 @@ function eAnimAnimationCreate(_id, _animType) constructor {
         functionBackloop = method(mySelf, _newFunction);
     };
 	
+	static animSetValue = function (_newValue) {
+		
+		// has parent
+		if (eAnimExists(linkValueTo) && ((linkType == eAnimLinkType.aFull) || (linkType == eAnimLinkType.aPlay))) {
+			// not the same
+			if (linkValueTo.animValue != _newValue) {
+				// is not playing?
+				linkValueTo.animSetValue(_newValue);
+			};
+		};
+		// set the value
+		animValue = _newValue;
+		
+		// loop for all
+		for (var i = 0; i < array_length(linkChildren); i++) {
+			var _linkType = linkChildren[i].linkType;
+			if ((_linkType == eAnimLinkType.aFull) || (_linkType == eAnimLinkType.aPlay)) {
+				linkChildren[i].animSetValue(_newValue);
+			};
+		};
+	};
+	
 	static animUpdate = function () {
 		switch (animType) {
             case eAnimAnimType.groupAnimcurve:
@@ -830,6 +852,17 @@ function eAnimAnimationCreate(_id, _animType) constructor {
         switch (animType) {
             case eAnimAnimType.groupAnimcurve: case eAnimAnimType.groupKCurve:
                 
+				
+				
+				// has parent
+				if (eAnimExists(linkValueTo) && ((linkType == eAnimLinkType.aFull) || (linkType == eAnimLinkType.aPlay))) {
+					// not playing
+					if (!linkValueTo.isPlaying) {
+						// is not playing?
+						linkValueTo.animPlay();
+					};
+				};
+				
 				// hide not mentioned?
 				if (hideNotMentioned) {
 					// get all mentioned elements
@@ -848,9 +881,9 @@ function eAnimAnimationCreate(_id, _animType) constructor {
 				
 				// End all other aniamtions
 				if (_endAllOthers) {
-	                var _saveUp = eAnimParentElementsLoop(function (_elementIns) {
+	                var _saveUp = eAnimParentElementsLoop(function (_elementIns, _index, _selfIndex) {
 	                    // Is playing?
-	                    if (_elementIns.isPlaying) {
+	                    if (_elementIns.isPlaying && (_elementIns != _selfIndex)) {
 	                        // Sotp it
 	                        _elementIns.animStop();
 							
@@ -858,7 +891,7 @@ function eAnimAnimationCreate(_id, _animType) constructor {
 	                    };
 						
 						return false;
-	                }, eAnimType.animation);
+	                }, eAnimType.animation, mySelf);
 					// was playing
 					if (parent.transition && (arrayFind(_saveUp, true) != -1)) {
 						
@@ -869,10 +902,15 @@ function eAnimAnimationCreate(_id, _animType) constructor {
 				};
 				
 				
+				 // Reset anim value
+                animValue = 0;
+                isPlaying = true;
+				isPaused = false;
+				
 				// loop for all
 				for (var i = 0; i < array_length(linkChildren); i++) {
 					var _linkType = linkChildren[i].linkType;
-					if (_linkType == eAnimLinkType.aFull || _linkType == eAnimLinkType.aPlay) {
+					if ((_linkType == eAnimLinkType.aFull) || (_linkType == eAnimLinkType.aPlay)) {
 						linkChildren[i].animPlay();
 					};
 				};
@@ -885,10 +923,7 @@ function eAnimAnimationCreate(_id, _animType) constructor {
 					 // Get shift from it
 	                animShift = mainCurve.channelRead("shift", 0, 0);
 				};
-                // Reset anim value
-                animValue = 0;
-                isPlaying = true;
-				isPaused = false;
+               
                 show_debug_message("ANIMATION PLAYING (" + string(id) + ") (" + string(parent.id) + ")");
                 
             
@@ -912,8 +947,9 @@ function eAnimAnimationCreate(_id, _animType) constructor {
                     if (_elementIns.type == eAnimType.sprite) { _elementIns.animPlay("default"); };
                 });
                 
-                stepEvent();
-                animValue = 0;
+				animUpdate();
+                //stepEvent();
+                //animValue = 0;
             
                 functionStart();
             break;
@@ -921,24 +957,57 @@ function eAnimAnimationCreate(_id, _animType) constructor {
     };
     
     static animPause = function () {
-        // Now is paused
+		
+		// has parent
+		if (eAnimExists(linkValueTo) && ((linkType == eAnimLinkType.aFull) || (linkType == eAnimLinkType.aPlay))) {
+			// not playing
+			if ((!linkValueTo.isPaused) || (!linkValueTo.isPlaying)) {
+				// is not playing?
+				linkValueTo.animPause();
+			};
+		};
+		
+		// is not playing?
+		if (!isPlaying) { animPlay(); };
+		// Now is paused
         isPaused = true;
+		
+        
 		// loop for all
 		for (var i = 0; i < array_length(linkChildren); i++) {
 			var _linkType = linkChildren[i].linkType;
 			if (_linkType == eAnimLinkType.aFull || _linkType == eAnimLinkType.aPlay) {
-				linkChildren[i].animPause();
+				// not playing
+				if ((!linkChildren[i].isPaused) || (!linkChildren[i].isPlaying)) {
+					linkChildren[i].animPause();
+				};
 			};
 		};
     };
     static animResume = function () {
-        // Resume playing
+        
+		// has parent
+		if (eAnimExists(linkValueTo) && ((linkType == eAnimLinkType.aFull) || (linkType == eAnimLinkType.aPlay))) {
+			// not playing
+			if ((linkValueTo.isPaused) || (!linkValueTo.isPlaying)) {
+				// is not playing?
+				linkValueTo.animResume();
+			};
+		};
+		
+		// Resume playing
         isPaused = false;
+		// is not playing?
+		if (!isPlaying) { animPlay(); };
+		
 		// loop for all
 		for (var i = 0; i < array_length(linkChildren); i++) {
 			var _linkType = linkChildren[i].linkType;
 			if (_linkType == eAnimLinkType.aFull || _linkType == eAnimLinkType.aPlay) {
-				linkChildren[i].animResume();
+				// not playing
+				if ((linkChildren[i].isPaused) || (!linkChildren[i].isPlaying)) {
+					linkChildren[i].animResume();
+				};
 			};
 		};
     };
@@ -950,6 +1019,14 @@ function eAnimAnimationCreate(_id, _animType) constructor {
         isPlaying = false;
 		// back up
 		isPaused = false;
+		// has parent
+		if (eAnimExists(linkValueTo) && ((linkType == eAnimLinkType.aFull) || (linkType == eAnimLinkType.aPlay))) {
+			// not playing
+			if (linkValueTo.isPlaying) {
+				// is playing?
+				linkValueTo.animStop();
+			};
+		};
         // loop for all
 		for (var i = 0; i < array_length(linkChildren); i++) {
 			var _linkType = linkChildren[i].linkType;
@@ -1004,6 +1081,19 @@ function eAnimAnimationCreate(_id, _animType) constructor {
                 // Is npaused>
                 if (isPaused)
                     { break; };
+				
+				
+				var _tempShift;
+				// if the curve is
+				if (animType == eAnimAnimType.groupAnimcurve) {
+	                // Get shift from it
+	                _tempShift = animcurveRead(mainCurve, "shift", 0, 0);
+				} else {
+					 // Get shift from it
+	                _tempShift = mainCurve.channelRead("shift", 0, 0);
+				};
+				// now, how is it?
+				if (animShift != 0) { animShift = sign(animShift) * _tempShift; } else { animShift = _tempShift; };
 				
                 
 				// Is linked to

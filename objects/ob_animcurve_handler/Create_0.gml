@@ -51,6 +51,14 @@ selectedPointL = false;
 selectedPointROn = false;
 selectedPointLOn = false;
 
+// This is to save the original mouse position
+selectedPointMoveMouseXOc = 0;
+selectedPointMoveMouseYOc = 0;
+// And this to avoid
+selectedPointMoveMouseXOffset = 0;
+selectedPointMoveMouseYOffset = 0;
+selectedPointCanMove = false; // This is to avoid the point from moving A LOT with just one fucking click
+
 onTheCurve = -1;
 testPointOnCurve = false;
 
@@ -64,11 +72,14 @@ mouseYOff = 0;
 
 readPoint = 0;
 
+modifyPointTimerMax = 10;
+modifyPointTimer = 0;
+
 // to boot up all values from here
 restoreValues = function () {
 	
 	selectedPoint = -1;
-
+	
 	selectedPointR = false;
 	selectedPointL = false;
 	

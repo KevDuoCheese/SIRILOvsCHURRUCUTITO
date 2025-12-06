@@ -3,18 +3,28 @@ mainCore.stepCall();
 
 
 
+var _cPcWasHidden = curvePointCore.hide;
+// hide anyways
+curvePointCore.hide = true;
 // there is a selecred animatioon
 if (animationSelectedExists()) {
 	// get the global id
 	var _animationId = animationSelectedGetId();
 	// set the animation id
-	_animationId.animLoopType = animationGlobalLoopType;
+	//_animationId.animLoopType = animationGlobalLoopType; (DESCARTED)
 	
 	// channel is selected
 	if (animationChannelSelectedExists()) {
 		
 		// set the reading point on animation point
 		animcurveHandler.readPoint = _animationId.animValue;
+		// Is there something selected?
+		if (animcurveHandler.selectedPoint >= 0) {
+			// was hidden?
+			if (_cPcWasHidden) { curvePointCore.stepCall(); };
+			// didnt hide
+			curvePointCore.hide = false;
+		};
 	};
 	
 	// press play
@@ -54,14 +64,17 @@ if ((global._kuiDepth == 0) && (!mainCore.childrenCursorInside)) {
 	if (keyboard_check_pressed(vk_delete)) {
 		// has selected anything?
 		if (objectSelectedExists()) {
-			// get the id
-			var _selectedId = objectSelectedGetId();
-			
-			// delete the object
-			objectDelete(_selectedId);
-			// update it
-			ob_animation_editor.objectUpdateList();
-			exit;
+			// avoid to delete if selecting the animation curve editor and a point.
+			if (!(((animcurveHandler.kAnimCurveChannel != -1) && (animcurveHandler.selectedPoint >= 0)))) {
+				// get the id
+				var _selectedId = objectSelectedGetId();
+				
+				// delete the object
+				objectDelete(_selectedId);
+				// update it
+				ob_animation_editor.objectUpdateList();
+				exit;
+			};
 		};
 	};
 	

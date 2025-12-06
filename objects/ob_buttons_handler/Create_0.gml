@@ -6,6 +6,14 @@ global.pp = 35;
 buttonMainX = 8 * 0.5;
 buttonMainY = 9 * 0.5;
 buttonSeparationX = 160 * 0.5;
+
+// optimize this
+buttonHideYDistance = 70;
+// like that i guess
+buttonHide = false;
+// this too see how much is hiding
+buttonHideValue = 0;
+
 // here the option
 cMenuCreate();
 
@@ -21,6 +29,14 @@ _namesNicons = [
 	"ITEM",
 	"DEF"
 ];
+// adjust this
+buttonsPSI = [
+	
+	"psi_offensive",
+	"psi_defensive",
+	"psi_healer",
+	"psi_special"
+];
 // Another one to save here the buttons ID
 buttons = [];
 
@@ -34,3 +50,8 @@ for (var i = 0; i < 4; i++) {
 	
 	array_push(buttons, _buttonN);
 };
+
+// where the fucking enemy is
+global.enemyInstance = instance_create_depth(160, 135, 0, ob_enemy);
+// And now create the sirilo actor
+playerActor = instance_create_depth(0, screen.height, 0, ob_sirilo_actor);

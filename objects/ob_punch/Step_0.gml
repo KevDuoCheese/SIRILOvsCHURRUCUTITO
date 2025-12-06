@@ -28,6 +28,17 @@ switch (phase) {
             phase = 3;
             indexActive = true;
             indexAlpha = 1;
+			// calculate plin power
+			plinPower = 1 - abs(indexPos - 1);
+			// create the plin
+			var _plinHandler = instance_create_depth(0, 0, 0, ob_plin_handler);
+			_plinHandler.plinPower = plinPower;
+			// adjust it
+			destroyTimer = timerGet(0.75 + (plinPower * 0.75));
+			// hide buttons
+			ob_buttons_handler.buttonHide = true;
+			// play the sound
+			chargingSound = audio_replay_sound(so_punch_charge, 10, false, 0.7);
             break;
         };
         // Max position
@@ -58,7 +69,7 @@ switch (phase) {
         animValue = approachValue(animValue, 0, max(0, animValue * 0.25 + 0.01)); 
         // If it's near enough set it
         if (roundDecimal(animValue, 2) <= 0)
-            { animValue = 0; instance_destroy(); exit; };
+            { animValue = 0; audio_stop_sound(chargingSound); instance_destroy(); exit; };
     
     break;
 };

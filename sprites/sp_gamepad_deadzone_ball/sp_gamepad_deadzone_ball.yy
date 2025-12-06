@@ -1,5 +1,5 @@
 {
-  "$GMSprite":"",
+  "$GMSprite":"v2",
   "%Name":"sp_gamepad_deadzone_ball",
   "bboxMode":0,
   "bbox_bottom":7,
@@ -12,7 +12,7 @@
   "edgeFiltering":false,
   "For3D":false,
   "frames":[
-    {"$GMSpriteFrame":"","%Name":"5b2d5aeb-8eb6-4abd-8152-3000f23a8a7f","name":"5b2d5aeb-8eb6-4abd-8152-3000f23a8a7f","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"5b2d5aeb-8eb6-4abd-8152-3000f23a8a7f","name":"5b2d5aeb-8eb6-4abd-8152-3000f23a8a7f","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
   ],
   "gridX":0,
   "gridY":0,

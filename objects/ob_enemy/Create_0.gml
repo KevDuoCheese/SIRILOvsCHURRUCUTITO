@@ -73,4 +73,123 @@ eyesTimerMax = 10;
 eyesTimer = 0;
 eyesTimerActive = false;
 
-//show_debug_message(mainAnimationOb)
+// save up health here
+healthValueMax = 1000;
+healthValue = healthValueMax;
+// for the phases now
+phase = "idle";
+
+// on hurt mode
+hurtHealthSave = 0;
+hurtHealthSpeed = 0;
+// hurt offset
+hurtOffsetX = 0;
+hurtOffsetY = -80;
+
+// to hurt enemy
+enemyHurt = function (_hurtValue) {
+	// to hurt him
+	phase = "hurt";
+	// play the animation
+	animationPlay("hurt");
+	
+	// create a jumpanimation
+	var _jumpNumber = instance_create_depth(x + hurtOffsetX, y + hurtOffsetY + 10, 0, ob_hit_enemy_number, {
+		myText : string(_hurtValue)
+	});
+	
+	// on hurt mode
+	hurtHealthSave = healthValue;
+	// decrease it
+	healthValue = approachValue(healthValue, 0, _hurtValue);
+	hurtHealthSpeed = (hurtHealthSave - healthValue) / timerGet(1.5);
+};
+
+
+
+// animation playing
+animationPlaying = "idle";
+animationPlayingSettings = -1;
+// if ended or aomething
+animationFlag = false;
+
+animationDefault = {
+	"hurt": {
+		type: "sprite_only",
+		spriteIndex : sp_keseso_hurt,
+		imageIndex : 0,
+		imageSpeed : 0,
+		doFunction: function (_myId) {
+			// set effect
+			_myId.effectPlaying = "shake";
+			_myId.effectShakeTimerMax = timerGet(1.5);
+			_myId.effectShakeTimer = _myId.effectShakeTimerMax;
+			_myId.effectShakeStrength = 15;
+			// change end function
+			_myId.effectEndFunction = method(_myId, function () {
+				// and back to it
+				animationStop();
+			});
+		}
+	},
+	
+	"idle": {
+		type: "animation_play",
+		animationOb : mainAnimationOb,
+		animationId : 0,
+		loops: 1 // yes it loops
+	}
+};
+
+animationSettings = {
+	
+};
+
+// no effect playing
+effectPlaying = "";
+// effect end thing
+effectEndFunction = -1;
+// fpr shake
+effectShakeTimer = 0;
+effectShakeTimerMax = 0;
+effectShakeStrength = 5;
+
+animationPlay = function (_animId) {
+	// what to play bro?
+	
+	// can be found?
+	if (struct_exists(animationSettings, _animId)) {
+		// yup
+		animationPlayingSettings = animationSettings[$ _animId];
+	} else {
+		// do the default one
+		animationPlayingSettings = animationDefault[$ _animId];
+	};
+	// exists do function?
+	if (struct_exists(animationPlayingSettings, "doFunction")) {
+		animationPlayingSettings.doFunction(id);
+	};
+};
+
+animationStop = function () {
+	// just stop it and call the flag
+	animationFlag = true;
+	// and stop it
+	animationPlay("idle");
+};
+
+animationIsPlaying = function () {
+	// if not playing idle, is playing something
+	return (animationPlaying != "idle");
+};
+
+
+
+// for animations
+xDrawOffset = 0;
+yDrawOffset = 0;
+yDrawScale = 1;
+xDrawScale = 1;
+
+// play the idle animation
+animationPlay("idle");

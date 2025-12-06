@@ -1,5 +1,5 @@
 {
-  "$GMSprite":"",
+  "$GMSprite":"v2",
   "%Name":"sp_keseso_left_arm",
   "bboxMode":0,
   "bbox_bottom":21,
@@ -12,7 +12,7 @@
   "edgeFiltering":false,
   "For3D":false,
   "frames":[
-    {"$GMSpriteFrame":"","%Name":"60e3b9a6-2f64-4e60-a9c8-99e033521deb","name":"60e3b9a6-2f64-4e60-a9c8-99e033521deb","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"60e3b9a6-2f64-4e60-a9c8-99e033521deb","name":"60e3b9a6-2f64-4e60-a9c8-99e033521deb","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
   ],
   "gridX":0,
   "gridY":0,

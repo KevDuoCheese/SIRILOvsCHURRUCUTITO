@@ -1,5 +1,5 @@
 {
-  "$GMSprite":"",
+  "$GMSprite":"v2",
   "%Name":"sp_kg_shoulderl",
   "bboxMode":0,
   "bbox_bottom":10,
@@ -12,8 +12,8 @@
   "edgeFiltering":false,
   "For3D":false,
   "frames":[
-    {"$GMSpriteFrame":"","%Name":"725c9801-4d8d-490a-97e0-59b943e48b15","name":"725c9801-4d8d-490a-97e0-59b943e48b15","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
-    {"$GMSpriteFrame":"","%Name":"c8d09d3d-89ca-4d33-910c-9245f5d75903","name":"c8d09d3d-89ca-4d33-910c-9245f5d75903","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"725c9801-4d8d-490a-97e0-59b943e48b15","name":"725c9801-4d8d-490a-97e0-59b943e48b15","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"c8d09d3d-89ca-4d33-910c-9245f5d75903","name":"c8d09d3d-89ca-4d33-910c-9245f5d75903","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
   ],
   "gridX":0,
   "gridY":0,

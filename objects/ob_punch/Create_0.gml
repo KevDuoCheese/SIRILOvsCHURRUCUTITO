@@ -18,5 +18,10 @@ indexActive = false;
 
 indexAlpha = 0;
 indexAlphaShift = 1 / 5;
+
+plinPower = 0;
 // Reach middle in 15 frames
 indexShift = ((image_xscale / 2) / timerGet(0.5)) / (image_xscale / 2);
+
+// ma sound
+chargingSound = -1;

@@ -310,8 +310,10 @@ function kuiCore(_name, _posUIVec2, _sizeUIVec2, _callbackF = kuiDCall) construc
 		
 		// quit parenting
 		elements[$ elementName].parent = noone;
+		
+		var _drawOrderIndex = arrayFind(elementsDrawOrder, elementName);
 		// remove from array
-		array_delete(elementsDrawOrder, arrayFind(elementsDrawOrder, elementName), 1);
+		if (_drawOrderIndex >= 0) { array_delete(elementsDrawOrder, _drawOrderIndex, 1); };
 		// quit out
 		struct_remove(elements, elementName);
 		
@@ -336,7 +338,7 @@ function kuiCore(_name, _posUIVec2, _sizeUIVec2, _callbackF = kuiDCall) construc
 		destroyUserEvent();
 		
 		// destry elelents
-		elementLoop(function (_elementIns) { _elementIns.selfDestroy(); });
+		elementLoop(function (_elementIns) { show_debug_message("Destroying Children First"); _elementIns.selfDestroy(); });
 		// has parent?
 		if (hasParent()) {
 			// dleete it
@@ -424,7 +426,7 @@ function kuiCore(_name, _posUIVec2, _sizeUIVec2, _callbackF = kuiDCall) construc
 	static useableElement = function () {
 		// If can use the element instance
 		//return ((global._kuiUsingButton == noone) || (global._kuiUsingButton == id)) && global.kuiActiveButtons && (global._kuiDepth == uiDepth);
-		return global.kuiActiveButtons && (global._kuiDepth == uiDepth) && (!kuiExists(global._kuiUsingButton) || (global._kuiUsingButton == mySelf));
+		return global.kuiActiveButtons && (!hide) && (global._kuiDepth == uiDepth) && (!kuiExists(global._kuiUsingButton) || (global._kuiUsingButton == mySelf));
 	};
 	
 	// adjust the draw event here
@@ -982,7 +984,7 @@ function kuiInput(_name, _posUIVec2, _sizeUIVec2, _helpText = "", _initText = ""
 				break;
 			};
 			// compatible for last time
-			isCompatibleText = isCompatibleText && checkoutUserEvent(keyboard_string);
+			if (isCompatibleText) { isCompatibleText = checkoutUserEvent(keyboard_string); };
 			
 			
 			// Enter or clic outside
@@ -1137,6 +1139,8 @@ function kuiInputText(_name, _posUIVec2, _sizeUIVec2, _backText = "", _backTextW
 		new kuiUIVec2(_backTextWidth, 0, _sizeUIVec2.y.offset, _sizeUIVec2.y.scale),
 		_backText, _backColor, _backHAlign, _backVAlign);//_backTextWidth
 	// adjust this on
+	backTextUI._ocButton = mySelf;
+	backTextUI.userSetStepEvent(function () { hide = _ocButton.hide; });
 	
 	// adjust X
 	position.x.offset += _backTextWidth;

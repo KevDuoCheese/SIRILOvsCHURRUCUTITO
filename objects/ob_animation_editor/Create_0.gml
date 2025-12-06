@@ -33,7 +33,7 @@ var _inOffX = 80;
 var _inOffY = 4;
 var _inOffYHeight = 90;
 
-var _timelineY = -(_inOffYHeight + _inOffY);
+var _timelineY = -(_inOffYHeight + _inOffY); // is on top of the animcurve
 // ad inside
 windowTimelineIn = new kuiWindowInternal("wTimelineIn",
 										new kuiUIVec2(_inOffX, 0, _timelineY, 1),
@@ -47,7 +47,7 @@ animcurveHandler = instance_create_depth(0, 0, 0, ob_animcurve_handler, {
 
 // add the buttons in position
 var _limitTopButton = new kuiInputText("curveTop",
-						new kuiUIVec2(-_inOffX + 4, 1, _timelineY, 1), new kuiUIVec2(40, 0, 14, 0), "LTop: ", 30, "Set number here", "", 10, false, KUI_INPUT_TYPE.floatType,
+						new kuiUIVec2(-_inOffX + 4, 1, _timelineY - 16, 1), new kuiUIVec2(40, 0, 14, 0), "LTop: ", 30, "Set number here", "", 10, false, KUI_INPUT_TYPE.floatType,
 						function () {
 							
 							// set the top limit to that value
@@ -56,13 +56,64 @@ var _limitTopButton = new kuiInputText("curveTop",
 _limitTopButton.setNoInputControl(function () { storedNumber = ob_animation_editor.animcurveHandler.drawLimitTop; });
 
 var _limitBottomButton = new kuiInputText("curveBottom",
-						new kuiUIVec2(-_inOffX + 4, 1, _timelineY + 16, 1), new kuiUIVec2(40, 0, 14, 0), "LBut: ", 30, "Set number here", "", 10, false, KUI_INPUT_TYPE.floatType,
+						new kuiUIVec2(-_inOffX + 4, 1, _timelineY, 1), new kuiUIVec2(40, 0, 14, 0), "LBut: ", 30, "Set number here", "", 10, false, KUI_INPUT_TYPE.floatType,
 						function () {
 							
 							// set the bottom limit to that value
 							ob_animation_editor.animcurveHandler.drawLimitBottom = storedNumber;
 						}, fa_left);
 _limitBottomButton.setNoInputControl(function () { storedNumber = ob_animation_editor.animcurveHandler.drawLimitBottom; });
+
+// ---- FOR SELECTED POINTS IN A ANIMCURVE SETTINGS -----
+
+#region This is for modifing the X, Y position of the point selected of the animcurve channel.
+
+// Create a core to hold this and hide if needed
+curvePointCore = new kuiCore("pointCore", new kuiUIVec2(0, 0, 0, 0), new kuiUIVec2(0, 1, 0, 1));
+curvePointCore.hide = true;
+
+// H position of the point
+var _curvePointH = new kuiInputText("pointH",
+						new kuiUIVec2(-_inOffX + 4, 1, _timelineY + 24, 1), new kuiUIVec2(40, 0, 14, 0), "h: ", 30, "Set number here", "", 10, false, KUI_INPUT_TYPE.floatType,
+						function () {
+							
+							// not selected nothing
+							if ((ob_animation_editor.animcurveHandler.kAnimCurveChannel != -1) && (ob_animation_editor.animcurveHandler.selectedPoint >= 0)) {
+								var _points = ob_animation_editor.animcurveHandler.kAnimCurveChannel.points;
+								
+								// set the top limit to that value
+								_points[ob_animation_editor.animcurveHandler.selectedPoint].setPosition(storedNumber, _points[ob_animation_editor.animcurveHandler.selectedPoint].y);
+							};
+						}, fa_left);
+_curvePointH.setNoInputControl(function () { 
+	// not selected nothing
+	if ((ob_animation_editor.animcurveHandler.kAnimCurveChannel != -1) && (ob_animation_editor.animcurveHandler.selectedPoint >= 0)) {
+	storedNumber = ob_animation_editor.animcurveHandler.kAnimCurveChannel.points[ob_animation_editor.animcurveHandler.selectedPoint].x; }; });
+	
+	// H position of the point
+var _curvePointV = new kuiInputText("pointV",
+						new kuiUIVec2(-_inOffX + 4, 1, _timelineY + 40, 1), new kuiUIVec2(40, 0, 14, 0), "v: ", 30, "Set number here", "", 10, false, KUI_INPUT_TYPE.floatType,
+						function () {
+							
+							// not selected nothing
+							if ((ob_animation_editor.animcurveHandler.kAnimCurveChannel != -1) && (ob_animation_editor.animcurveHandler.selectedPoint >= 0)) {
+								var _points = ob_animation_editor.animcurveHandler.kAnimCurveChannel.points;
+								
+								// set the top limit to that value
+								_points[ob_animation_editor.animcurveHandler.selectedPoint].setPosition(_points[ob_animation_editor.animcurveHandler.selectedPoint].x, storedNumber);
+							};
+						}, fa_left);
+_curvePointV.setNoInputControl(function () { 
+	// not selected nothing
+	if ((ob_animation_editor.animcurveHandler.kAnimCurveChannel != -1) && (ob_animation_editor.animcurveHandler.selectedPoint >= 0)) {
+	storedNumber = ob_animation_editor.animcurveHandler.kAnimCurveChannel.points[ob_animation_editor.animcurveHandler.selectedPoint].y; }; });
+
+
+curvePointCore.elementAdd(_curvePointH, _curvePointV);
+
+#endregion
+
+// ---- FOR SAVE AND LOAD THE CREATED ANIMATIONS AND OBJECTS ----
 
 // set the button to save up
 var _systemSaveButton = new kuiButtonImage("save_up", new kuiUIVec2(4, 0, 3, 0), new kuiUIVec2(16, 0, 16, 0), sp_ae_system, 0,
@@ -109,6 +160,7 @@ var _systemLoadButton = new kuiButtonImage("load_up", new kuiUIVec2(22, 0, 3, 0)
 						});
 
 
+/* Due this will export directly to game, we cant have a global loop, because we need to REALLY save up the loop type
 // set for this loop type
 animationGlobalLoopType = eAnimRepeatType.endloop; // end loop
 // creat that
@@ -129,10 +181,45 @@ var _animationLoopButton = new kuiButtonImage("loop_type", new kuiUIVec2(_inOffX
 _animationLoopButton.userSetStepEvent(function () {
 	// set the flobal loop]
 	elements.imageUI.imageIndex = ob_animation_editor.animationGlobalLoopType;
+});//*/
+
+
+// creat that
+var _animationLoopButton = new kuiButtonImage("loop_type", new kuiUIVec2(_inOffX, 0, 3, 0), new kuiUIVec2(16, 0, 16, 0), sp_ae_loop_type, /*animationGlobalLoopType*/3,
+						function () {
+							
+							// there is a selecred animatioon
+							if (ob_animation_editor.animationSelectedExists()) {
+								// get the global id
+								var _animationId = ob_animation_editor.animationSelectedGetId();
+								// go next
+								_animationId.animLoopType++;
+								// set up limit
+								if (_animationId.animLoopType >= 3) {
+									// reset it
+									_animationId.animLoopType = 0;
+								};
+								
+								// here
+								show_debug_message("ANIM EDITOR: Changed animation loop type");
+							};
+							
+							show_debug_message("ANIM EDITOR: Couldn't change animation loop type because BRO, YOU DIDNT SELECT ANYTHING WHAA??");
+						});
+_animationLoopButton.userSetStepEvent(function () {
+	// there is a selecred animatioon
+	if (ob_animation_editor.animationSelectedExists()) {
+		// get the global id
+		var _animationId = ob_animation_editor.animationSelectedGetId();
+		// set the flobal loop]
+		elements.imageUI.imageIndex = _animationId.animLoopType;
+	
+	// well, if nothing selected just put an X
+	} else { elements.imageUI.imageIndex = 3; };
 });
 
 // creat that
-var _animationPlayingButton = new kuiButtonImage("playing", new kuiUIVec2(_inOffX + 18, 0, 3, 0), new kuiUIVec2(16, 0, 16, 0), sp_ae_anim_play, animationGlobalLoopType,
+var _animationPlayingButton = new kuiButtonImage("playing", new kuiUIVec2(_inOffX + 18, 0, 3, 0), new kuiUIVec2(16, 0, 16, 0), sp_ae_anim_play, 0,
 						function () {
 							
 							// has it?
@@ -169,9 +256,71 @@ _animationPlayingButton.userSetStepEvent(function () {
 	};
 });
 
+// heckour for data thing
+var _animationValueEditButton = new kuiInputText("value_edit", new kuiUIVec2(_inOffX + 36, 0, 4, 0), new kuiUIVec2(50, 0, 14, 0), "Value: ", 40, "Animation Value",
+								"", 10, false, KUI_INPUT_TYPE.floatType, function () {
+									
+									// has it?
+									if (!ob_animation_editor.animationSelectedExists()) { exit; };
+									// save it
+									var _animationId = ob_animation_editor.animationSelectedGetGlobalParentId();
+									
+									// is in range
+									_animationId.animValue = storedNumber;
+									
+								}, fa_left, fa_top, function () {
+									// has it?
+									if (!ob_animation_editor.animationSelectedExists()) { hide = true; exit; };
+									// not hide
+									hide = false;
+									// save it
+									var _animationId = ob_animation_editor.animationSelectedGetGlobalParentId();
+									
+									// sert the
+									storedNumber = _animationId.animValue;
+								});
+_animationValueEditButton.userSetCheckout(function (_text) {
+	// convert to real
+	var _realTemp = real(_text);
+	// in range
+	return ((_realTemp >= 0) && (_realTemp <= 1));
+});
+
+// heckour for data thing
+var _animationShiftEditButton = new kuiInputText("fpsDuration", new kuiUIVec2(_inOffX + 128, 0, 4, 0), new kuiUIVec2(50, 0, 14, 0), "FPS D: ", 40, "FPS Duration",
+								"", 10, false, KUI_INPUT_TYPE.floatType, function () {
+									
+									// has it?
+									if (!ob_animation_editor.animationSelectedExists()) { exit; };
+									// save it
+									var _animationId = ob_animation_editor.animationSelectedGetGlobalParentId();
+									// get the main curve
+									var _channelCurve = _animationId.mainCurve.channelGet("shift");
+									_channelCurve.pointGet(0).y = 1 / storedNumber;
+									_channelCurve.pointGet(1).y = 1 / storedNumber;
+									
+								}, fa_left, fa_top, function () {
+									// has it?
+									if (!ob_animation_editor.animationSelectedExists()) { hide = true; exit; };
+									// not hide
+									hide = false;
+									// save it
+									var _animationId = ob_animation_editor.animationSelectedGetGlobalParentId();
+									var _channelCurve = _animationId.mainCurve.channelGet("shift");
+									
+									// sert the
+									storedNumber = 1 / _channelCurve.checkOnX(0);
+								});
+_animationShiftEditButton.userSetCheckout(function (_text) {
+	// convert to real
+	var _realTemp = real(_text);
+	// in range
+	return (_realTemp >= 0);
+});
+
 
 // add to it
-windowTimeline.elementAdd(_limitTopButton, _limitBottomButton, _systemSaveButton, _systemLoadButton, _animationLoopButton, _animationPlayingButton);
+windowTimeline.elementAdd(_limitTopButton, _limitBottomButton, curvePointCore, _systemSaveButton, _systemLoadButton, _animationLoopButton, _animationPlayingButton, _animationValueEditButton, _animationShiftEditButton);
 
 debugVSetValue("showUICreation", true);
 debugVSetValue("showEAnimCreation", true);
@@ -218,6 +367,8 @@ objectList = new kuiList("obList", new kuiUIVec2(10, 0, 10, 0), new kuiUIVec2(15
 																	function () {
 								/* */
 								#region Pressed button of object, so open the list or do what the object requires
+								
+								show_debug_message("Called PRESS event on button.");
 								
 								// if type if that
 								if (animationType == eAnimType.objectChannelAnimation) {
@@ -267,9 +418,9 @@ objectList = new kuiList("obList", new kuiUIVec2(10, 0, 10, 0), new kuiUIVec2(15
 								// do the step event
 								parent.stepEvent();
 								stepUserEvent();
-								//show_debug_message(json_stringify(insideButtonsData, true));
+								
 								// clear up
-								array_delete(myButtons, 0, array_length(myButtons));
+								if (array_length(myButtons) > 0) { array_delete(myButtons, 0, array_length(myButtons)); };
 								
 								show_debug_message("Adding from: (" + string(listOId) + ") of option " + string(animationId));
 								// loop for each one
@@ -291,6 +442,13 @@ objectList = new kuiList("obList", new kuiUIVec2(10, 0, 10, 0), new kuiUIVec2(15
 							}, function () {
 								/* */
 								#region When object unpresses, so close the list and delete my extra buttons
+								
+								show_debug_message("Called UNPRESS event on button.");
+								// If its a channel, we dont need to do ANYTHING. Just close it.
+								if (animationType == eAnimType.objectChannelAnimation) {
+									opened = false;
+									exit;
+								};
 								
 								// is opened and not selcted?
 								if (opened && (ob_animation_editor.objectSelectedGetId() != animationOriginalObject) && (unpressSelectCheck)) {
@@ -392,6 +550,9 @@ objectList = new kuiList("obList", new kuiUIVec2(10, 0, 10, 0), new kuiUIVec2(15
 							// update here
 							_buttonListIns.userSetStepEvent(function () {
 								
+								// before doing anything, clear this up
+								if (array_length(insideButtonsData) > 0) { array_delete(insideButtonsData, 0, array_length(insideButtonsData)); };
+								
 								// if type if that
 								if (animationType == eAnimType.objectChannelAnimation) {
 									
@@ -424,8 +585,6 @@ objectList = new kuiList("obList", new kuiUIVec2(10, 0, 10, 0), new kuiUIVec2(15
 								// is opened
 								elements.imageList.setImageIndex(opened);
 								
-								// clear up
-								array_delete(insideButtonsData, 0, array_length(insideButtonsData));
 								// switch the type
 								switch (animationOriginalObject.type) {
 									
@@ -469,7 +628,7 @@ objectList = new kuiList("obList", new kuiUIVec2(10, 0, 10, 0), new kuiUIVec2(15
 										};
 									break;
 								};
-								// sprite or object, FOR ANIM
+								// sprite or object, FOR ANIM, this is for an anim curve that is on the same layer and its comaptible to handle with
 								if ((animationOriginalObject.type == eAnimType.sprite) || (animationOriginalObject.type == eAnimType.object)) {
 									
 									// has animation?
@@ -506,18 +665,13 @@ objectList = new kuiList("obList", new kuiUIVec2(10, 0, 10, 0), new kuiUIVec2(15
 							return _buttonListIns;
 						},
 						function (_oId, _listParent, _infoStruct, _oX, _oY, _oW, _oH) {
-							// the first is thw button
-							//show_debug_message("Updating button: " + string(array_length(_listParent.optionGetElements(_oId))));
+							
 							// get the elemnts
 							var _buttonListIns = _listParent.optionGetElements(_oId)[1];
 							
-							// adjust
-							//_buttonListIns.elements.textUI.setText("Hello " + string(_oId));
 							// set up it
 							_buttonListIns.listOId = _oId;
 						});
-// add elements
-//objectList.optionAdd({}, {}, {});
 
 
 
@@ -771,9 +925,32 @@ var _animationDataLink = new kuiListButton("linkAnimation", new kuiUIVec2(0, 0, 
 							};
 						});
 
+// creat that
+var _animationUnlinkButton = new kuiButtonText("unlink", new kuiUIVec2(0, 0, 16, 0), new kuiUIVec2(0, 1, 14, 0), "Unlink",
+						function () {
+							
+							// has it?
+							if (!ob_animation_editor.animationSelectedExists()) { exit; };
+							// save it
+							var _animationId = ob_animation_editor.animationSelectedGetId();
+							
+							// is not playing
+							if (eAnimExists(_animationId.linkValueTo)) {
+								_animationId.animUnlinkValueToAnim();
+							};
+						});
+_animationUnlinkButton.userSetStepEvent(function () {
+	// has it?
+	if (!ob_animation_editor.animationSelectedExists()) { hide = true; exit; };
+	// must have
+	if (!eAnimExists(ob_animation_editor.animationSelectedGetId().linkValueTo)) { hide = true; exit; };
+	// not hide
+	hide = false;
+});
 
 
-objectDataWindow.animationData.elementAdd(_animationDataLink);
+
+objectDataWindow.animationData.elementAdd(_animationDataLink, _animationUnlinkButton);
 
 // incluse it
 objectDataWindow.elementAdd(objectDataWindow.objectDataTransform, objectDataWindow.spriteDataTransform, objectDataWindow.objectDataTimeline, objectDataWindow.objectDataIdHandler, objectDataWindow.animationData);
@@ -1068,6 +1245,8 @@ animationChannelSelectedGetId = function () {
 
 
 
+
+
 // for animations
 objectAnimationCompatible = function (_objectId) {
 	
@@ -1185,6 +1364,28 @@ animationSelectedGetId = function () {
 	
 	return -1;
 };
+/// @description returns the eAnim object Id of the global animation, we get this by getting a constant of full or play values
+animationSelectedGetGlobalParentId = function () {
+	
+	// do exists?
+	if (!animationSelectedExists()) { return -1; };
+	// and get it
+	var _lastSelected = animationSelectedGetId();
+	
+	// scale up
+	while (eAnimExists(_lastSelected.linkValueTo)) {
+		// full or play
+		if (((_lastSelected.linkType == eAnimLinkType.aFull) || (_lastSelected.linkType == eAnimLinkType.aPlay)) ||
+			((_lastSelected.linkType == eAnimLinkType.aValue) && _lastSelected.linkValueTo.isPlaying)) {
+			
+			// change it
+			_lastSelected = _lastSelected.linkValueTo;
+			
+		} else { break; };
+	};
+	
+	return _lastSelected;
+};
 // adjust for object delete
 objectDelete = function (_objectId, _deleteStruct = true) {
 	
@@ -1255,6 +1456,18 @@ objectSelect = function (_objectId) {
 	// is an animation?
 	if (_objectId.type == eAnimType.animation) {
 		
+		// was selecting animation? stop the anim if playing
+		if (animationSelectedExists()) {
+			// get the global id
+			var _animationId = animationSelectedGetId();
+			// so, if its playing stop it
+			if (_animationId.isPlaying) {
+				// play that shit
+				_animationId.animStop();
+			};
+		};
+		
+		
 		animationSelected = objectGetTree(_objectId);
 		// also selected animation
 		show_debug_message("Anim Editor: SELECTED ANIMATION, DATA: " + string(animationSelected));
@@ -1315,17 +1528,14 @@ objectUpdateList = function () {
 	
 	
 	// reset it
-	array_delete(objectMainButtons, 0, array_length(objectMainButtons));
-	//show_debug_message("OPtion count: "  + string(objectList.optionCount()));
-	//show_debug_message("Sit here:" + json_stringify(_savingUp, true));
-	// show it
-	//show_debug_message("Loadup it: " + string(struct_get_names(objectData)));
+	if (array_length(objectMainButtons) > 0) { array_delete(objectMainButtons, 0, array_length(objectMainButtons)); };
+	
 	// create all the options here
 	var _dataNames = struct_get_names(objectData);
 	for (var i = 0; i < array_length(_dataNames); i++) {
-		// get the id
+		// This is the real object in the world space, not an UI element
 		var _elementId = objectData[$ _dataNames[i]];
-		// create the option
+		// create the option that holds the new object created
 		var _optionCreated = objectList.optionAdd({
 			internalOptionId : i,
 			
@@ -1352,12 +1562,7 @@ objectUpdateList = function () {
 	// deselect
 	//objectSelectedDeselect();
 	objectSelectedExists();
-	//show_debug_message("main buttons: " + string(objectMainButtons));
-	/*show_debug_message("main buttons:");
-	for (var i = 0; i < array_length(objectMainButtons); i++) {
-		
-		show_debug_message("	" + string(objectMainButtons[i].animationId));
-	};//*/
+	
 	show_debug_message("Anim Editor: Updated object list, Finish");
 };
 

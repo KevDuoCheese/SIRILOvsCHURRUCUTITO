@@ -1,5 +1,5 @@
 {
-  "$GMSprite":"",
+  "$GMSprite":"v2",
   "%Name":"sp_animed_curve_point",
   "bboxMode":0,
   "bbox_bottom":3,
@@ -12,8 +12,8 @@
   "edgeFiltering":false,
   "For3D":false,
   "frames":[
-    {"$GMSpriteFrame":"","%Name":"da5029b8-6033-47d0-80a0-822534d17e37","name":"da5029b8-6033-47d0-80a0-822534d17e37","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
-    {"$GMSpriteFrame":"","%Name":"7215cfee-4401-4896-a992-d1895a8666d6","name":"7215cfee-4401-4896-a992-d1895a8666d6","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"da5029b8-6033-47d0-80a0-822534d17e37","name":"da5029b8-6033-47d0-80a0-822534d17e37","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"7215cfee-4401-4896-a992-d1895a8666d6","name":"7215cfee-4401-4896-a992-d1895a8666d6","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
   ],
   "gridX":0,
   "gridY":0,

@@ -1,6 +1,5 @@
 /// @description Main screen ajustments and surface too
-
-// Random seed
+	// Random seed
 randomize();
 
 // Add region adjustments
@@ -154,12 +153,16 @@ global.fontMap[? "test"]		 = fo_test;
 global.fontMap[? "small"]		 = fo_small;
 // UI battle
 global.fontMap[? "ui-buttons"]	 = fo_ui_buttons;
+// Pixel
+global.fontMap[? "pixel"]		 = fo_pixel;
 // Debug numbers
 global.fontMap[? "debug-num"]	 = font_add_sprite_ext(sp_fo_debug_numbers, ".0123456789truefals°,", 1, -1);
 // General font dude
 global.fontMap[? "general"]		 = _fontKongS;
 // For testing
 global.fontMap[? "test-data"]	 = font_add_sprite_ext(sp_fo_debug_numbers, ".0123456789truefals°,p:", true, -1);
+// When hitting an enemy
+global.fontMap[? "hit"]			 = fo_hit;
 
 // Enumerate each keybind ID for search
 enum keybindType { keyboard = 0, keyboard_alt = 1, gamepad = 2, gamepad_alt = 3 };
@@ -235,3 +238,4 @@ global.flagValue = ds_map_create();
 randomize();
 global.funValue = irandom_range(1, 100);
 
+//show_message(string(thirdDegreeRealRoots(1, -7, 14, -8)));

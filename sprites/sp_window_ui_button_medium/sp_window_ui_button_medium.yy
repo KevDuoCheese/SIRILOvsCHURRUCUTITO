@@ -1,5 +1,5 @@
 {
-  "$GMSprite":"",
+  "$GMSprite":"v2",
   "%Name":"sp_window_ui_button_medium",
   "bboxMode":1,
   "bbox_bottom":11,
@@ -12,7 +12,7 @@
   "edgeFiltering":true,
   "For3D":false,
   "frames":[
-    {"$GMSpriteFrame":"","%Name":"a8e2c73e-18f7-40a9-a46d-26cc92b6bc0c","name":"a8e2c73e-18f7-40a9-a46d-26cc92b6bc0c","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"a8e2c73e-18f7-40a9-a46d-26cc92b6bc0c","name":"a8e2c73e-18f7-40a9-a46d-26cc92b6bc0c","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
   ],
   "gridX":0,
   "gridY":0,

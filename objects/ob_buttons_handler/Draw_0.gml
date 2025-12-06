@@ -1,4 +1,6 @@
 /// @description 
+if (drawCan(viewId.draw)) { cMenuWindowDrawAll(); exit; };
+
 if (!drawCan(viewId.gui)) { exit; };
 
 
@@ -10,6 +12,8 @@ _ppX = (393 * 0.5);
 // And positions
 var _liquidWindowY;
 _liquidWindowY = (340 * 0.5) - (sinInverval(130) * 2);
+// add for hiding
+_liquidWindowY += buttonHideYDistance * buttonHideValue;
 // For window and gauge
 var _liquidWindowWidth, _liquidWindowHeight;
 _liquidWindowWidth	 = 238 * 0.5;
@@ -52,3 +56,4 @@ draw_text_transformed(_hpX + _gaugeX + 2, _gaugeY + (_gaugeHeight / 2), string(f
 draw_text_transformed(_ppX + _gaugeX + 2, _gaugeY + (_gaugeHeight / 2), string(floor(global.pp)) + "/" + string(global.ppMax), 1.25, 1, 0);
 
 drawReset();
+

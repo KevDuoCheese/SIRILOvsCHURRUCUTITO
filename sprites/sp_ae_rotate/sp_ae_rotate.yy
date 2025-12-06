@@ -1,5 +1,5 @@
 {
-  "$GMSprite":"",
+  "$GMSprite":"v2",
   "%Name":"sp_ae_rotate",
   "bboxMode":0,
   "bbox_bottom":13,
@@ -12,7 +12,7 @@
   "edgeFiltering":false,
   "For3D":false,
   "frames":[
-    {"$GMSpriteFrame":"","%Name":"eea8f4e4-c917-4a5f-897a-edd83eeee14a","name":"eea8f4e4-c917-4a5f-897a-edd83eeee14a","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"v1","%Name":"eea8f4e4-c917-4a5f-897a-edd83eeee14a","name":"eea8f4e4-c917-4a5f-897a-edd83eeee14a","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
   ],
   "gridX":0,
   "gridY":0,

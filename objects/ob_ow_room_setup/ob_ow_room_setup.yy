@@ -26,7 +26,7 @@
   "physicsShapePoints":[],
   "physicsStartAwake":true,
   "properties":[
-    {"$GMObjectProperty":"v1","%Name":"musicId","filters":[
+    {"$GMObjectProperty":"v2","%Name":"musicId","filters":[
         "GMSound",
       ],"listItems":[],"multiselect":false,"name":"musicId","rangeEnabled":false,"rangeMax":10.0,"rangeMin":0.0,"resource":{"name":"so_silence","path":"sounds/so_silence/so_silence.yy",},"resourceType":"GMObjectProperty","resourceVersion":"2.0","value":"so_silence","varType":5,},
   ],
